@@ -367,11 +367,18 @@ export default function Services({isSignIn, setIsSignIn, setCartItems, cartItems
 		e.preventDefault();
 		let newData = [...car_database];
 		let freshData = [];
+		// alert(JSON.stringify(filter))
 	
 		for (let key in filter) {
 			if (filter[key].length > 0) {
 				for (let item of newData) {
-					if ((filter[key].length > 0) && (item[key].toString().toLowerCase() === filter[key].toLowerCase())) { 
+					if (key === "Price" || key === "Mileage" || key === "Seats" ) {
+						let tmp = parseFloat(item[key].replace(",",""))
+						if (tmp <= parseFloat(filter[key].replace(",",""))) { 
+							freshData.push(item) 
+						}
+					}
+					else if ((item[key].toString().toLowerCase() === filter[key].toLowerCase())) { 
 						freshData.push(item) 
 					};
 				}

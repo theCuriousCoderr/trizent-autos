@@ -27,7 +27,7 @@ function Filter({ newFilter, filter, handleFilterChange, handleFilterSubmit }) {
           </div>
         </div>
 
-        <div className='flex justify-between'>
+        <div className='flex flex-wrap justify-between'>
           <div className='relative w-[48%] md:w-[49%]'>
             <input name="Mileage" value={filter.Mileage} onChange={handleFilterChange} type="text" autoComplete='off' placeholder='-Mileage-' className='peer/mileage placeholder:p-2 focus:placeholder:invisible border border-violet-950 h-9 w-full p-2 pt-3 rounded' />
             <p className='peer-focus/mileage:block hidden absolute -top-2 text-[0.7rem] bg-white ml-2 px-1 font-bold text-center  md:text-lg md:-top-4'>Mileage</p>
@@ -37,11 +37,13 @@ function Filter({ newFilter, filter, handleFilterChange, handleFilterSubmit }) {
             <input name="Price" value={filter.Price} onChange={handleFilterChange} type="text" autoComplete='off' placeholder='-Price range-' className='peer/price placeholder:p-2 focus:placeholder:invisible border border-violet-950 h-9 w-full p-2 pt-3 rounded' />
             <p className='peer-focus/price:block hidden absolute -top-2 text-[0.7rem] bg-white ml-2 px-1 font-bold text-center  md:text-lg md:-top-4'>Price</p><br />
           </div>
+          
         </div>
 
 
 
         <button type="submit" className='font-bold text-xl bg-purple-800 text-slate-50 hover:bg-purple-50 hover:text-purple-800 active:bg-green-600 p-2 w-full text-center rounded-lg font-mono'>FILTER</button>
+        <p className='text-sm'>*Results for any numeric filter apart from year will be results lesser than or equal to the inputed value</p>
       </form>
     </div>
   )
