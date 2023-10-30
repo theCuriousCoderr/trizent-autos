@@ -1,0 +1,13 @@
+{
+	"folders": [
+		{
+			"name": "vite",
+			"path": "../../.."
+		},
+		{
+			"name": "server",
+			"path": "../../../../clone-trizent/projects/server"
+		}
+	],
+	"settings": {}
+}
