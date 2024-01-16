@@ -842,7 +842,7 @@ export var car_database = [
       "Transmission": "Automatic",
       "Recommendation": "Recommended for transporting people",
       "url": "",
-      "Year": 2020,
+      "Year": 2020, 
       "Make": "Honda",
       "Model": "Accord Hybrid",
       "Category": "Sedan",
@@ -850,6 +850,61 @@ export var car_database = [
       "updatedAt": "2020-01-27T20:44:17.665Z"
     }
   ];
+
+
+  export let options = {
+    year: [],
+    make: [],
+    model: [],
+    category: [],
+    color: []
+
+  };
+  for (let cars of car_database ){
+    if (!(options.year.includes(cars.Year))){
+      options.year.push(cars.Year)
+    }
+    if (!(options.make.includes(cars.Make))){
+      options.make.push(cars.Make)
+    }
+    if (!(options.model.includes(cars.Model))){
+      options.model.push({[cars.Make]: [cars.Model]})
+    }
+    if (!(options.category.includes(cars.Category))){
+      options.category.push({[cars.Make]: [cars.Category]})
+      // options.category.push(cars.Category)
+    }
+    if (!(options.color.includes(cars.Color))){
+      options.color.push(cars.Color)
+    }
+  }
+  // alert(JSON.stringify(options))
+
+  export let copyOptions =  {
+    Year: [],
+    Make: [],
+    Model: [],
+    Category: [],
+    Color: []}
+  for (let items of car_database) {
+    // let copyOptions = {...filterOptions}
+    if(!(copyOptions.Year.includes(items.Year))) {
+      copyOptions.Year.push(items.Year)
+    }
+    if(!(copyOptions.Make.includes(items.Make))) {
+      copyOptions.Make.push(items.Make)
+    }
+    if(!(copyOptions.Model.includes(items.Model))) {
+      copyOptions.Model.push(items.Model)
+    }
+    if(!(copyOptions.Category.includes(items.Category))) {
+      copyOptions.Category.push(items.Category)
+    }
+    if(!(copyOptions.Color.includes(items.Color))) {
+      copyOptions.Color.push(items.Color)
+    }
+  }
+
 
 
 export var repairs_database = [

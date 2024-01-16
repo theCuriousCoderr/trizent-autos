@@ -6,10 +6,13 @@ import CloseIcon from '@mui/icons-material/Close';
 import { red } from '@mui/material/colors';
 import RemovePrompt from './RemovePrompt';
 import Remove from './Remove';
+import car1 from '../images/car1.jpg'
+import SalesItemInfo from './SalesItemInfo';
 
 
 function CartInfo({salesInfo, image, setCartItems, cartItems, setCount, setTotalPrice, priceFormat}) {
     const [ removePrompt, setRemovePrompt ] = useState("hide");
+    const [ showInfo, setShowInfo ] = useState(false)
  
 
     function addToCart(param) {
@@ -69,6 +72,10 @@ function CartInfo({salesInfo, image, setCartItems, cartItems, setCount, setTotal
         setRemovePrompt("hide");
     }
 
+    function handleShowInfo() {
+
+    }
+
 
    
 
@@ -77,22 +84,76 @@ function CartInfo({salesInfo, image, setCartItems, cartItems, setCount, setTotal
     { removePrompt === "show" && <RemovePrompt setRemovePrompt={setRemovePrompt} cartItems={cartItems} setCartItems={setCartItems} salesInfo={salesInfo} /> }
     {/* {setCartTotalPrice(prevPrice => prevPrice + priceFormat(salesInfo.Price))} */}
     { salesInfo.Count > 0 && 
-    <div className=' w-80 mx-auto mb-10 p-1 pb-3 rounded-lg border-4 border-purple-900 md:flex md:flex-wrap md:w-full'>
-        <div className='md:flex md:flex-wrap md:flex-col md:w-1/3 md:mt-24'>
-            {salesInfo.url ? <img src={salesInfo.url} alt={salesInfo.Year + " " + salesInfo.Make + " " + salesInfo.Model + " " + salesInfo.Category} className='w-80 md:w-full' /> : <img src={image} alt="Display Image Car." className='w-80 md:w-full' /> }
-            <div className='hidden md:block md:text-center '>
-                <h2 className='font-bold text-purple-800 text-lg'>{salesInfo.Year + " " + salesInfo.Make + " " + salesInfo.Model + " " + salesInfo.Category}</h2>
-                <p className='border-4 border-purple-900 rounded-xl font-bold text-black p-2 w-20 text-center mx-auto'>{salesInfo.Tag}</p>
+    <div onClick={()=> setShowInfo(true)} className='mx-2 bg-blue-60 mb-5 p-1 pb-3 rounded-lg borde border-purple-900 md:flex md:flex-wrap md:w-full'>
+        { showInfo && 
+        <div onClick={(e)=> {e.stopPropagation(); setShowInfo(false)}} className='absolute flex pt-[15vh] justify-center z-10 top-0 left-0 w-full h-full bg-gray-700 bg-opacity-70'>
+            <div>
+                <SalesItemInfo salesInfo={salesInfo} car1={car1} setCartItems={setCartItems} cartItems={cartItems}  state={false} />
             </div>
+
+
+            
+            {/* salesInfo, car1, setCartItems, cartItems, tag, state=true} */}
+        </div>}
+        <div className='bg-blue-70  items-center justify-between flex flex-nowrap md:flex md:flex-wrap md:flex-col md:w-1/3 md:mt-24'>
+            <div className='w-[30%] bg-red-30 border-2 border-slate-300 overflow-hidden rounded-lg'>
+                 {salesInfo.url ? <img src={salesInfo.url} alt={salesInfo.Year + " " + salesInfo.Make + " " + salesInfo.Model + " " + salesInfo.Category} className='w-80 md:w-full' /> : <img src={car1} alt="Display Image Car." className='w-full h-full md:w-full' /> }
+            </div>
+            
+            <div className='w-[65%] bg-red-30 hidde md:block md:text-center '>
+                <div className='flex items-center justify-between'>
+                    <h2 className='font-bold text-gray-950 text-md'>{salesInfo.Make + " " + salesInfo.Model}</h2>
+                    <div>
+                        <Remove showPrompt={showPrompt} />
+                    </div>
+                </div>
+               
+                
+                <p className='relative bg-purple-700 bg-opacity-30 font-normal text-fuchsia-900 rounded-full px-1 w-20 text-center mx-aut text-sm'>
+                    
+                    <div className='absolute bottom-1 right-1 w-1 h-1 rounded-full bg-white'></div>
+                    <div className='absolute top-1 left-1 w-1 h-1 rounded-full bg-white'></div>
+                    {salesInfo.Tag}
+                </p>
+
+                <div className='flex items-center'>
+                    { salesInfo.Price && <p className='p-1 bg-violet-40 text-lg rounded text-gray-900 font-bold font-mono '> ${salesInfo.Price} </p>}
+                    <div className='w-full mx-auto text-center mt-'>
+            {
+                salesInfo.Count > 0 && 
+                <div className='md:flex md:justify-evenly'>
+                    {/* <div>
+                        <Remove showPrompt={showPrompt} />
+                    </div> */}
+                    <div className=' flex justify-end mr-2'>
+                        <div className='w-8 flex justify-center'>
+                            <button onClick={(e)=> { e.stopPropagation(); addToCart("minus")}} className='text-white w-full font-bold bg-red-600 h-8 text-lg rounded-xl active:bg-red-400'>-</button>
+                        </div>
+                        <div className=' w-10 flex justify-center'>
+                            <button className='text-black w-full font-bold p- text-lg rounded-xl'>{salesInfo.Count}</button>
+                        </div>
+                        <div className=' w-8 flex justify-center'>
+                            <button onClick={(e)=> {e.stopPropagation(); addToCart("add")}} className='text-white w-full font-bold bg-green-600 h-8 text-lg rounded-xl active:bg-green-400'>+</button>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+                </div>
+             
+                
+            </div>
+
+           
         </div>
         
         <div className='p-2 text-center space-y-2 md:inline-block md:w-2/3'>
-            <div className='md:hidden'>
+            <div className='hidden md:hidden'>
                 <h2 className='font-bold text-purple-800 text-lg'>{salesInfo.Year + " " + salesInfo.Make + " " + salesInfo.Model + " " + salesInfo.Category}</h2>
                 <p className='border-4 border-purple-900 rounded-xl font-bold text-black p-2 w-20 text-center mx-auto'>{salesInfo.Tag}</p>
             </div>
 
-            <div className='p-2 text-center space-y-2' >
+            <div className='p-2 text-center space-y-2 hidden' >
                 { salesInfo.Transmission && <p className='p-1 bg-violet-400 rounded text-white font-bold font-mono '><span className='text-purple-900'>Transmission: </span>{salesInfo.Transmission}</p>}
                 { salesInfo.Color && <p className='p-1 bg-violet-400 rounded text-white font-bold font-mono '><span className='text-purple-900'>Color :</span> {salesInfo.Color}</p>}
                 { salesInfo.Mileage && <p className='p-1 bg-violet-400 rounded text-white font-bold font-mono '><span className='text-purple-900'>Mileage :</span> {salesInfo.Mileage} </p>}
@@ -113,47 +174,9 @@ function CartInfo({salesInfo, image, setCartItems, cartItems, setCount, setTotal
                     {salesInfo.Recommendation && <p className='p-1 bg-violet-400 rounded text-red-600 font-bold font-mono '>{salesInfo.Recommendation} </p> }
                 </div>
             </div>
-            {/* { salesInfo.Transmission && <p className='p-1 bg-violet-400 rounded text-white font-bold font-mono '><span className='text-purple-900'>Transmission: </span>{salesInfo.Transmission}</p>}
-            { salesInfo.Color && <p className='p-1 bg-violet-400 rounded text-white font-bold font-mono '><span className='text-purple-900'>Color :</span> {salesInfo.Color}</p>}
-            { salesInfo.Mileage && <p className='p-1 bg-violet-400 rounded text-white font-bold font-mono '><span className='text-purple-900'>Mileage :</span> {salesInfo.Mileage} </p>}
-            { salesInfo.Price && <p className='p-1 bg-violet-400 rounded text-white font-bold font-mono '><span className='text-purple-900'>Price:</span> {salesInfo.Price} </p>}
-            { salesInfo.Seats && <p className='p-1 bg-violet-400 rounded text-white font-bold font-mono '><span className='text-purple-900'>Seats :</span> {salesInfo.Seats} </p>}
-            { salesInfo.Bags && <div className='p-1 bg-violet-400 rounded text-white font-bold font-mono '>
-                <p className='text-purple-900'>Luggage Capacity :</p>
-                <div className=''>
-                    <p>{salesInfo.Bags.Large + `${salesInfo.Bags.Large > 1 ? " Large Bags" : " Large Bag" }`}</p>
-                    <p>{salesInfo.Bags.Small + `${salesInfo.Bags.Small > 1 ? " Small Bags" : " Small Bag" }`}</p>
-                </div>
-            </div>}
-            {salesInfo.pickUp && <p className='p-1 bg-violet-400 rounded text-white font-bold font-mono '><span className='text-purple-900'>Pick-Up Location :</span> {salesInfo.pickUp} </p> }
-            {salesInfo.return ? <p className='p-1 bg-violet-400 rounded text-white font-bold font-mono '><span className='text-purple-900'>Return Location :</span> {salesInfo.return} </p> : <p className='p-1 bg-violet-400 rounded text-white font-bold font-mono '><span className='text-purple-900'>Return Location :</span> {salesInfo.pickUp} </p>  }
-            {salesInfo.pickUpDate && <p className='p-1 bg-violet-400 rounded text-white font-bold font-mono '><span className='text-purple-900'>Pick-Up Date :</span> {salesInfo.pickUpDate} </p> }
-            {salesInfo.returnDate && <p className='p-1 bg-violet-400 rounded text-white font-bold font-mono '><span className='text-purple-900'>Return Date :</span> {salesInfo.returnDate} </p> }
-            <div>
-                {salesInfo.Recommendation && <p className='p-1 bg-violet-400 rounded text-red-600 font-bold font-mono '>{salesInfo.Recommendation} </p> }
-            </div> */}
+           
         </div>
-        <div className='w-full mx-auto text-center mt-5'>
-            {
-                salesInfo.Count > 0 && 
-                <div className='md:flex md:justify-evenly'>
-                    <div>
-                        <Remove showPrompt={showPrompt} />
-                    </div>
-                    <div className=' flex justify-end mr-2'>
-                        <div className=' w-10 flex justify-center'>
-                            <button onClick={()=> addToCart("minus")} className='text-white w-full font-bold bg-red-600 p-3 text-lg rounded-xl active:bg-red-400'>-</button>
-                        </div>
-                        <div className=' w-14 flex justify-center'>
-                            <button className='text-black w-full font-bold p-3 text-lg rounded-xl'>{salesInfo.Count}</button>
-                        </div>
-                        <div className=' w-10 flex justify-center'>
-                            <button onClick={()=>addToCart("add")} className='text-white w-full font-bold bg-green-600 p-3 text-lg rounded-xl active:bg-green-400'>+</button>
-                        </div>
-                    </div>
-                </div>
-            }
-        </div>
+       
     </div> } </>
         
   )

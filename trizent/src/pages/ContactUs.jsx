@@ -13,10 +13,11 @@ import { faq } from '../components/Car_Database';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { CallMade, CallMerge, CallReceived, CallSplit, PhoneCallback } from '@mui/icons-material';
 import PopUp from '../components/PopUp';
+import Header from '../components/Header';
 
 
 
-function ContactUs({isSignIn, setIsSignIn, cartItems, socket, reviews, setReviews}) {
+function ContactUs({ isSignIn, cartItems, setCartItems, setIsSignIn, signInWelcome, cartCount, setCartCount, setSignInWelcome, reviews, setReviews}) {
   const [faqFilter, setFaqFilter] = useState(faq);
   const [feedback, setFeedback] = useState({
     "name": "",
@@ -93,6 +94,7 @@ function ContactUs({isSignIn, setIsSignIn, cartItems, socket, reviews, setReview
 
   return (
     <div className='page-transition md:mt-32'>
+      <Header isSignIn={isSignIn} setIsSignIn={setIsSignIn} cartItems={cartItems} cartCount={cartCount} setCartCount={setCartCount} />
       <BackToTop />
       <div id="popup" hidden>
         <PopUp addedPrompt="show" text="Feedback Submitted Successfully !" />

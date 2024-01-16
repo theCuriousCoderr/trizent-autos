@@ -55,17 +55,28 @@ function Gallery() {
         <div className='relative lg:portrait:-mt-2'>
           <h2 className='text-white text-2xl mb-3'>WHAT WE CAN DO FOR YOU </h2>
           <div>
-            <div id="gallery" onClick={(e) => {handleClick('Forward')}} className='relative w-[21rem] h-56 mx-auto md:w-full md:p-2 md:h-80 '>
+            <div id="gallery"   className='bg-red-300 relative flex overflow-x-scroll snap-x snap-mandatory w-full h-60 mx-auto md:w-full md:p-2 md:h-80 '>
               <div className='absolute w-full h-20 bg-red-20 top-1/3 flex justify-between pt-5 px-2'>
                 <span onClick={(e) => { e.stopPropagation(); handleClick('Back')}}> <ArrowBackIos sx={{fontSize: 40, color:orange[400]}} /> </span>
                 <span onClick={(e) => {e.stopPropagation(); handleClick('Forward')}}> <ArrowForwardIos  sx={{fontSize: 40, color:orange[400] }} /> </span>
               </div>
-              <img key={GalleryData[id].url} src={GalleryData[id].url} alt={GalleryData[id].text} className='w-[21rem] h-full border-4 bg-purple-500 rounded-xl mx-auto md:w-full' />
+              {
+                GalleryData.map(image => {
+                  return (
+                    <div onScroll={()=>alert("gdh")} className='bg-yellow-400 min-w-full snap-end snap-normal'>
+                      <img  key={image.url} src={image.url} alt={image.text} className='w-full h-[90%] mx-auto md:w-full' />
+                     
+                    </div>
+                  )
+                })
+              }
+              {
+
+              }
+              
             </div>
           </div>
-          <div className='my-2'>
-            {GalleryData.map((item)=> <div key={item.url} className={`mr-2 h-4 w-4 rounded-full inline-block border border-transparent ${GalleryData[id] === item ? "bg-slate-200" : "bg-transparent"}`} onClick={()=>handleGallerySlide(item)}></div> )}
-          </div>
+        
           <div className='flex justify-center align-middle -mt-2'>
             <p className='text-slate-100 text-md font-semibold font-roboto shadow-lg m-2 md:text-xl'>{GalleryData[id].text.toUpperCase()}</p>
           </div>

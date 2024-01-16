@@ -1,18 +1,23 @@
 import React, { useEffect, useState } from 'react';
 import { NavLink, redirect, useNavigate } from 'react-router-dom';
-import { env } from '../config';
+// import { env } from '../config';
+import Loading from '../components/Loading'
+// import { CLOUDINARY_URL } from '../config';
+let dotEnv = import.meta.env
 
 function NewMember({ handleLogInDisplay, handleSubmit, details, handleDetailsChange, status, enable, hash, errorMessage, setErrorMessage }) {
   const [logInBtnState, setLogInBtnState] = useState(true)
   let navigate = useNavigate();
   const [show, setShow] = useState("hidden");
+  const [imageUrl, setImageUrl] = useState("")
   // alert("kl")
 
   let baseUrl;
-  if (env === "development") {
-    baseUrl = "http://localhost:4000"
+  // alert(dotEnv.MODE)
+  if (dotEnv.MODE === "development") {
+    baseUrl = dotEnv.VITE_DEV_URL
   } else {
-    baseUrl = "https://trizent-autos-server.vercel.app"
+    baseUrl = dotEnv.VITE_PROD_URL
   }
 
   useEffect(() => {
@@ -23,6 +28,35 @@ function NewMember({ handleLogInDisplay, handleSubmit, details, handleDetailsCha
   async function signUpApiCall(e, param) {
     e.preventDefault();
     setLogInBtnState(false);
+    // alert(JSON.stringify(details))
+
+    let photoData = new FormData()
+    try {
+      if (details.photo) {
+        photoData.append("file", details.photo)
+        photoData.append("upload_preset", dotEnv.VITE_PRESET_NAME)
+        photoData.append("cloud_name", dotEnv.VITE_CLOUD_NAME)
+        // photoData = { file: details.photo, upload_preset: "theCuriousCoder"}
+        let response = await fetch( dotEnv.VITE_CLOUDINARY_URL, {
+          method: "POST",
+          // headers: { 'Content-Type': 'application/json' },
+          body : photoData
+        })
+        let data = await response.json()
+        if (data.url) {
+          setImageUrl(data.url)
+        } else {
+          throw new Error("Image Upload Unsuccessful")
+        }
+        
+        alert(JSON.stringify(data.url))
+        // setLogInBtnState(true)
+      }
+    } catch(err) {
+      alert(err)
+    }
+
+    alert("yes")
 
     if ((details.email === details.confirmEmail) && (details.password === details.confirmPassword)) {
       try {
@@ -30,10 +64,10 @@ function NewMember({ handleLogInDisplay, handleSubmit, details, handleDetailsCha
         var response = await fetch(url, {
           method: "POST",
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ ...param, "password": hash(details.password), "confirmPassword": hash(details.confirmPassword), "loggedIn": "false" })
+          body: JSON.stringify({ ...param, "password": details.password, "confirmPassword": details.confirmPassword, "loggedIn": "false", "photo": imageUrl })
         })
         const data = await response.json();
-        // alert(JSON.stringify(data))
+        alert(JSON.stringify(data))
         if (data.message === "Email Already Exists") {
           window.scrollTo(0, 0);
           setErrorMessage("This email already exists ");
@@ -44,7 +78,7 @@ function NewMember({ handleLogInDisplay, handleSubmit, details, handleDetailsCha
           setShow("hidden");
           setLogInBtnState(true);
           handleSubmit();
-          navigate("/");
+          // navigate("/");
         } else {
           window.scrollTo(0, 0);
           setErrorMessage("An Error occured. Please try again");
@@ -55,6 +89,7 @@ function NewMember({ handleLogInDisplay, handleSubmit, details, handleDetailsCha
         window.scrollTo(0, 0);
         setErrorMessage("An Error occured. Please try again");
         setShow("visible");
+        setLogInBtnState(true);
         return
       }
 
@@ -67,8 +102,10 @@ function NewMember({ handleLogInDisplay, handleSubmit, details, handleDetailsCha
   }
 
 
+
   return (
-    <div className=' md:w-2/3 md:mx-auto md:text-xl'>
+    <div className=' md:w-2/3 md:mx-auto md:text-xl '>
+      { !logInBtnState && <Loading />}
       <div className='space-x-4 mb-4'>
         <span className='font-bold text-slate-400'>Already have an account ?</span>
         <NavLink name="logIn" onClick={handleLogInDisplay} className='font-bold text-blue-600 hover:text-blue-800 active:text-green-600'>Log In</NavLink>
@@ -100,6 +137,10 @@ function NewMember({ handleLogInDisplay, handleSubmit, details, handleDetailsCha
         <div>
           <p>First Name</p>
           <input required name="firstName" type="text" value={details.firstName} onChange={handleDetailsChange} placeholder="First Name" autoComplete="off" className='border border-slate-400 rounded py-1 px-3 w-full' />
+        </div>
+        <div>
+          <p>Upload a picture</p>
+          <input required name="photo" type="file" accept='image/*' onChange={handleDetailsChange} className='border border-slate-400 rounded py-1 px-3 w-full' />
         </div>
         <div>
           <p>Last Name</p>
@@ -137,6 +178,7 @@ function NewMember({ handleLogInDisplay, handleSubmit, details, handleDetailsCha
 function NotNewMember({ handleLogInDisplay, handleLogInSubmit, enable, setUserLogInDetails, userLogInDetails, hasAccount, setHasAccount, setIsSignIn, logInApiCall, errorMessage, setErrorMessage }) {
 
   const navigate = useNavigate();
+  // const [btnState, setBtnState] = useState()
   let show = "hidden";
 
   function handleLogIn(e) {
@@ -146,13 +188,14 @@ function NotNewMember({ handleLogInDisplay, handleLogInSubmit, enable, setUserLo
 
 
   if (hasAccount === "yes") {
-    setTimeout(() => navigate("/"), 1000);
+    setTimeout(() => navigate("/home"), 1000);
   } else if (hasAccount === "no") {
     show = "visible";
   }
 
   return (
     <div className=' md:w-2/3 md:mx-auto md:text-xl'>
+      { !(enable === "yes") && <Loading />}
       <div className=' mb-4 flex flex-wrap gap-2'>
         <span className='font-bold text-slate-400'>Don't have an account ? </span>
         <NavLink name="createAccount" onClick={handleLogInDisplay} className='font-bold text-blue-700 hover:text-blue-800 active:text-green-600'>Create An Account</NavLink>
@@ -213,10 +256,10 @@ function SignIn({ setIsSignIn, signInWelcome, setSignInWelcome }) {
   }, []);
 
   let baseUrl;
-  if (env === "development") {
-    baseUrl = "http://localhost:4000"
+  if (dotEnv.MODE === "development") {
+    baseUrl = dotEnv.VITE_DEV_URL
   } else {
-    baseUrl = "https://trizent-autos-server.vercel.app"
+    baseUrl = dotEnv.VITE_PROD_URL
   }
 
   function handleLogInDisplay(e) {
@@ -246,7 +289,15 @@ function SignIn({ setIsSignIn, signInWelcome, setSignInWelcome }) {
   function handleDetailsChange(e) {
     let name = e.target.name;
     let value = e.target.value;
-    setDetails({ ...details, [name]: value });
+    if (name === "photo") {
+      value = e.target.files[0]
+      // alert(e.target.files.length)
+      // alert(value)
+    }
+    let change = {...details, [name]: value}
+    // alert(JSON.stringify(change))
+    setDetails(change);
+    
   }
 
 
@@ -264,8 +315,9 @@ function SignIn({ setIsSignIn, signInWelcome, setSignInWelcome }) {
     } else {
       newStatus.passwordMatch = true;
     }
+    alert(JSON.stringify(details))
 
-    let newDetails = { ...details, "password": hash(details.password), "confirmPassword": hash(details.confirmPassword), "loggedIn": "false" };
+    let newDetails = { ...details, "password": details.password, "confirmPassword": details.confirmPassword, "loggedIn": "false" };
     localStorage.setItem("user", JSON.stringify(newDetails));
     setEnable(n => setEnable("yes"));
     setStatus(n => setStatus(newStatus));
@@ -280,7 +332,7 @@ function SignIn({ setIsSignIn, signInWelcome, setSignInWelcome }) {
       const response = await fetch(url, {
         method: "POST",
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ...userLogInDetails, "password": hash(userLogInDetails.password) })
+        body: JSON.stringify({ ...userLogInDetails, "password": userLogInDetails.password })
       });
       // alert(typeof(response))
       let data = await response.json()
@@ -297,10 +349,10 @@ function SignIn({ setIsSignIn, signInWelcome, setSignInWelcome }) {
         setHasAccount("no");
         setEnable("yes");
       } else {
-        alert(data)
+        // alert(data)
         let updateDetails = { ...data, "loggedIn": "true" };
         localStorage.setItem("user", JSON.stringify(updateDetails));
-        alert(JSON.stringify(updateDetails))
+        // alert(JSON.stringify(updateDetails))
         setHasAccount("yes");
         setIsSignIn(true);
         setSignInWelcome("show");
@@ -314,29 +366,6 @@ function SignIn({ setIsSignIn, signInWelcome, setSignInWelcome }) {
       localStorage.setItem("user", JSON.stringify({ "loggedIn": "false" }));
       setHasAccount("no");
     }
-
-    // .then(
-    //   (resolve) => {
-    //     if (resolve.message) {
-    //       alert(JSON.stringify(resolve));
-    //       localStorage.setItem("user", JSON.stringify({ "loggedIn": "false" }));
-    //       setHasAccount("no");
-    //       return;
-    //     }
-    //     let updateDetails = { ...resolve, "loggedIn": "true" };
-    //     localStorage.setItem("user", JSON.stringify(updateDetails));
-    //     alert(JSON.stringify(updateDetails))
-    //     setHasAccount("yes");
-    //     setIsSignIn(true);
-    //     setSignInWelcome("show");
-    //   },
-    //   (rejected) => {
-    //     alert("Rejected")
-    //     alert(JSON.stringify(rejected))
-    //     localStorage.setItem("user", JSON.stringify({ "loggedIn": "false" }));
-    //     setHasAccount("no");
-    //   }
-    // )
   }
 
   return (

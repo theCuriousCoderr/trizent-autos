@@ -127,13 +127,11 @@ export default function Home({ isSignIn, cartItems, setCartItems, setIsSignIn, s
                 lg:landscape:float-right lg:landscape:w-[66%] lg:landscape:mt-32
                 xl:landscape:float-none xl:landscape:w-full xl:portrait:w-full
                 '>
-                        <div className='relative my-10 bg-green-40 hidde'>
+                        <div className='relative my-10 bg-green-40 hidde py-10'>
                             <QuickFind />
                         </div>
 
-                        {/* <div className='my-10 lg:hidden xl:block '>
-                            <Gallery />
-                        </div> */}
+                      
 
                         <div className=' mb-10 bg-red-30 lg:hidden'>
                             <div className='bg-red-5 p-3'>
@@ -151,10 +149,16 @@ export default function Home({ isSignIn, cartItems, setCartItems, setIsSignIn, s
                                 </div>
                             </div>
 
+                            <div className='my-10 lg:hidden xl:block '>
+                                <Gallery />
+                            </div>
+
                             <div className='m-1 w-auto h-42 text-center p-4 space-y-8 mb-4 md:text-2xl lg:absolute lg:right-0 lg:w-[30%]'>
                                 {secLinks.map((link => <h2 key={link.path}><NavLink to={link.path} className='block border-2 border-purple-800 px-24 py-2 font-bold text-violet-600 hover:text-white hover:bg-violet-900 lg:portrait:px-2' >{link.text}</NavLink></h2>))}
                             </div>
                         </div>
+
+                      
 
                         <div className='lg:hidden'>
                             <div className='text-center p-2 mb-5 w-full md:mb-10 '>

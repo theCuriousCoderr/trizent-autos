@@ -12,26 +12,28 @@ import { companyName } from "../config";
 import { ArrowForward, ArrowForwardIos, Forward } from "@mui/icons-material";
 
 export default function QuickFind() {
-  const [quickFindState, setQuickFindState] = useState();
-
+  // const [quickFindState, setQuickFindState] = useState();
 
   return (
-    <div className="w-full bg-gray-50 pt-4 pb-10 rounded-xl mx-auto text-center mb-4 space-y-20 ">
+    <div className="w-full h-[75rem] relative bg-gray-50 pt-4 pb-10 rounded-xl mx-auto text-center mb-4 space-y-20 ">
       {/* car sales */}
-      <div className=" relative bg-blue-100 w-[80%] h-[20vh py-5 float-right rounded-lg pt-10 px-5 shadow-lg animate__animated fadeIn">
+      <div className=" relative bg-blue-10 w-[80%] py-5 float-right rounded-lg pt-10 px-5 shadow-lg  fadeIn">
         {/* icon div */}
-        <div className="absolute w-[80%] h-[10vh] bg-[rgba(127,59,123,0.3)] -top-10 -left-10 rounded-lg">
+        {/* <div className="absolute w-[80%] h-[10vh] bg-[rgba(127,59,123,0.3)] -top-10 -left-10 rounded-lg"> */}
+        <div className="absolute w-[80%] h-20 bg-gray-950 -top-10 -left-10 rounded-lg">
           {/* Icon */}
           <div className="relative flex flex-wrap flex-col bg-red-20">
             <div className="relative w-14 mt-6 bg-red-20">
               <DirectionsCarOutlinedIcon
-                sx={{ fontSize: 45, color: purple[800] }}
+                // sx={{ fontSize: 45, color: purple[800] }}
+                sx={{ fontSize: 45, color: "white" }}
               />
               <div className="absolute -top-5 left-3">
-                <PaidOutlinedIcon sx={{ fontSize: 30, color: purple[800] }} />
+                {/* <PaidOutlinedIcon sx={{ fontSize: 30, color: purple[800] }} /> */}
+                <PaidOutlinedIcon sx={{ fontSize: 30, color: "white" }} />
               </div>
             </div>
-            <div className="absolute bg-red-40 left-16 mt-[3vh] text-xl font-bold text-purple-600">
+            <div className="absolute bg-red-40 left-16 mt-[3vh] text-xl font-bold text-slate-100">
               CAR SALES
             </div>
           </div>
@@ -60,20 +62,22 @@ export default function QuickFind() {
         </div>
       </div>
       {/* car rentals */}
-      <div className=" relative bg-blue-100 w-[80%] h-[20vh py-5 float-left rounded-lg pt-10 px-5 shadow-lg animate__animated fadeIn">
+      <div className=" relative bg-blue-10 w-[80%] h-[20vh py-5 float-left rounded-lg pt-10 px-5 shadow-lg  fadeIn">
+      {/* <div className=" relative bg-blue-10 w-[80%] h-[20vh py-5 float-right rounded-lg pt-10 px-5 shadow-lg  fadeIn"> */}
         {/* icon div */}
-        <div className="absolute w-[80%] h-[10vh] bg-[rgba(127,59,123,0.3)] -top-10 -right-10 rounded-lg">
+        <div className="absolute w-[80%] h-20 bg-gray-950 -top-10 -right-10 rounded-lg">
+        
           {/* Icon */}
           <div className="relative bg-red-20">
             <div className="relative float-right w-14 mt-6 bg-red-20">
               <DirectionsCarOutlinedIcon
-                sx={{ fontSize: 45, color: purple[800] }}
+                sx={{ fontSize: 45, color: "white" }}
               />
               <div className="absolute -top-5 left-3">
-                <KeyOutlinedIcon sx={{ fontSize: 30, color: purple[800] }} />
+                <KeyOutlinedIcon sx={{ fontSize: 30, color: "white" }} />
               </div>
             </div>
-            <div className="absolute bg-red-40 right-16 mt-[3vh] text-xl font-bold text-purple-600">
+            <div className="absolute bg-red-40 right-16 mt-[3vh] text-xl font-bold text-slate-100">
               CAR RENTALS
             </div>
           </div>
@@ -103,22 +107,22 @@ export default function QuickFind() {
         </div>
       </div>
       {/* car repairs */}
-      <div className=" relative bg-blue-100 w-[80%] h-[20vh py-5 float-right rounded-lg pt-10 px-5 shadow-lg animate__animated fadeIn">
+      <div className=" relative bg-blue-10 w-[80%] h-[20vh py-5 float-right rounded-lg pt-10 px-5 shadow-lg  fadeIn">
         {/* icon div */}
-        <div className="absolute w-[80%] h-[10vh] bg-[rgba(127,59,123,0.3)] -top-10 -left-10 rounded-lg">
+        <div className="absolute w-[80%] h-20 bg-gray-950 -top-10 -left-10 rounded-lg">
           {/* Icon */}
           <div className="relative flex flex-wrap flex-col bg-red-20">
             <div className="relative w-14 mt-6 bg-red-20">
               <DirectionsCarOutlinedIcon
-                sx={{ fontSize: 45, color: purple[800] }}
+                sx={{ fontSize: 45, color: "white" }}
               />
               <div className="absolute -top-5 left-3">
                 <HandymanOutlinedIcon
-                  sx={{ fontSize: 30, color: purple[800] }}
+                  sx={{ fontSize: 30, color: "white" }}
                 />
               </div>
             </div>
-            <div className="absolute bg-red-40 left-16 mt-[3vh] text-xl font-bold text-purple-600">
+            <div className="absolute bg-red-40 left-16 mt-[3vh] text-xl font-bold text-slate-100">
               CAR REPAIRS
             </div>
           </div>

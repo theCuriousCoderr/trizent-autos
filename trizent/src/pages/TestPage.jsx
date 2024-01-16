@@ -1,29 +1,128 @@
 import { ArrowBack, ArrowForwardIos, AvTimerOutlined, CameraAlt, CameraAltOutlined, CameraFrontOutlined, HomeMaxOutlined, HomeOutlined, ListAltOutlined, LogoutOutlined, PersonOffOutlined, PersonOutlineOutlined, VerifiedUserOutlined } from '@mui/icons-material';
 import { Avatar } from '@mui/material';
-import React from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import cat from "../images/cat.jpg"
+import { useNavigate } from 'react-router-dom';
+let dotEnv = import.meta.env
+// import { CLOUDINARY_URL } from '../config';
+// import { env } from '../config';
+
 
 function TestPage() {
+    const [imageUrl, setImageUrl] = useState("")
+    const [user, setUser] = useState("")
+    const [picLoad, setPicLoad] = useState(false)
+    const prevImg = useRef()
+    let navigate = useNavigate()
+    
+    useEffect(()=> {
+        let data = localStorage.getItem("user")
+        data = JSON.parse(data)
+        if (data) {
+            // setImageUrl(data.photo)
+            setUser(data)
+        }
+        
+    
+        // data ? setUser(data) : setUser("");
+    }, [])
+  
+
+    let baseUrl;
+    if (dotEnv.MODE === "development") {
+      baseUrl = dotEnv.VITE_DEV_URL
+    } else {
+      baseUrl = dotEnv.VITE_PROD_URL
+    }
+
+
+    async function handleChangeDp(e) {
+        let file = document.getElementById("file")
+        try {
+            setPicLoad(true)
+            // alert(JSON.stringify(user))
+            prevImg.current = user.photo;
+            let changePhoto = new FormData()
+            let val = e.target.files[0]
+            changePhoto.append("file", val)
+            changePhoto.append("upload_preset", dotEnv.VITE_PRESET_NAME)
+            changePhoto.append("cloud_name", dotEnv.VITE_CLOUD_NAME)
+            let response = await fetch( dotEnv.VITE_CLOUDINARY_URL, {
+                method: "POST",
+                // headers: { 'Content-Type': 'application/json' },
+                body : changePhoto
+            })
+    
+            let data = await response.json()
+            // alert(data.url)
+            if (data.url) {
+            //   setUser({...user, photo: data.url})
+              let url = baseUrl + "/api/change-photo"
+              response = await fetch(url, {
+                  method: "POST",
+                  headers: { 'Content-Type': 'application/json' },
+                  body: JSON.stringify({id:user._id ,newPhoto: data.url})
+              })
+              data = await response.json()
+                setUser({...user, photo: data.message})
+              localStorage.setItem("user", JSON.stringify({...user, photo: data.message}))
+
+            } else {
+                setUser({...user, photo: prevImg.current})
+              throw new Error("Image Upload Unsuccessful")
+            }
+
+           
+        } catch (error) {
+            setUser({...user, photo: prevImg.current})
+        }
+        file.value = "";
+        setPicLoad(false);
+       
+
+
+    }
+
+    // if (user) {
+    //     pic = user.photo
+    // } else {
+    //     pic = cat
+    // }
+
+
+
+    
+   
   return (
     <div>
         <div className="mt-5">
             <p className="relative bg-red-30 text-center text-gray-900 font-bold text-lg font-mono">
                 My Profile
-                <div className='absolute left-0 top-0 w-[10%] bg-red-20'>
+                <div onClick={()=> navigate("/home")} className='absolute left-0 top-0 w-[10%] bg-red-20'>
                     <ArrowBack />
                 </div>
             </p>
             <div className='text-center mt-5 space-y-3'>
-                <div className='relative w-28 h-28 mx-auto rounded-full p-1 bg-gradient-to-tr from-pink-600 to-fuchsia-600'>
-                    <img src={cat} className='w-full h-full object-cover rounded-full' />
+                <div className='relative w-28 h-28 mx-auto rounded-full border-2 p-1 bg-gradient-to-tr from-pink-600 to-fuchsia-600'>
+                    <div className='relative bg-slate-200 w-full h-full rounded-full'>
+                         { picLoad && <div className='absolute w-full h-full rounded-full bg-slate-900 opacity-80 flex items-center justify-center'>
+                            <div className='w-10 h-10 border-t-2 border-b-2 border-slate-200 rounded-full animate-spin'></div>
+                        </div>}
+                        { user.photo ? <img src={user.photo} alt="User" className='w-full h-full object-cover rounded-full' /> : <div className='bg-red-50 h-full rounded-full flex items-center justify-center'> <Avatar /> </div> }
+                    </div>
+                    
+                    
                     <div className='absolute bottom-0 right-0 bg-red-40'>
                         <CameraAlt sx={{fontSize:35, color: 'gray'}} />
-                        {/* <CameraAlt */}
+                        <div className='absolute top-0 bg-red-300 w-10 h-10 opacity-0'>
+                            <input id="file" type="file"  accept='image/*' onChange={handleChangeDp}/>
+                        </div>
+                        
                     </div>
                 </div>
                 <div>
-                    <p className='text-gray-900 text-xl font-bold capitalize leading-6'>Sir Meows-a-lot</p>
-                    <p className="text-slate-400 font-semibold text-lg">pawsonline@gmail.com</p>
+                    <p className='text-gray-900 text-xl font-bold capitalize leading-6'>{user.lastName + " " + user.firstName}</p>
+                    <p className="text-slate-400 font-semibold text-lg">{user.email}</p>
                 </div>
                
             </div>
@@ -85,15 +184,6 @@ function TestPage() {
             </div>
            
         </div>
-         {/* <div className='fixed bg-red-300 bottom-0 right-0 left-0 h-16 rounded-t-xl '>
-      <HomeMaxOutlined />
-      <HomeOutlined />
-      <ListAltOutlined />
-      <AvTimerOutlined />
-      <VerifiedUserOutlined />
-      <PersonOffOutlined />
-      <PersonOutlineOutlined />
-    </div> */}
     </div>
    
   )

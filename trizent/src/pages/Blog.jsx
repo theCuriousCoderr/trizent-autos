@@ -1,7 +1,8 @@
 import React, {useEffect} from 'react';
 import BackToTop from '../components/BackToTop';
+import Header from '../components/Header';
 
-function Blog({ isSignIn ,setIsSignIn}) {
+function Blog({ isSignIn, cartItems, setCartItems, setIsSignIn, signInWelcome, cartCount, setCartCount, setSignInWelcome }) {
     useEffect(()=> {
         window.scrollTo(0, 0);
         let user = localStorage.getItem("user");
@@ -20,6 +21,7 @@ function Blog({ isSignIn ,setIsSignIn}) {
 
     return (
     <div className='page-transition md:mt-32'>
+      <Header isSignIn={isSignIn} setIsSignIn={setIsSignIn} cartItems={cartItems} cartCount={cartCount} setCartCount={setCartCount} />
         <BackToTop />
         <h1 className='font-bold text-xl text-center'>BLOG POSTS</h1>
         <div className='border-2 border-black m-2'></div>

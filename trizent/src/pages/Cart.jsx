@@ -6,8 +6,9 @@ import BackToTop from '../components/BackToTop';
 import { useNavigate } from 'react-router-dom';
 import { toMoneyString } from '../toMoneyString';
 import ViewCatalogue from '../components/ViewCatalogue';
+import Header from '../components/Header';
 
-function Cart({ setCartItems, cartItems, count, setCount, cartCount,totalPrice, setTotalPrice}) {
+function Cart({isSignIn, setIsSignIn, setCartItems, cartItems, count, setCount, cartCount, setCartCount, totalPrice, setTotalPrice}) {
     const [ removePrompt, setRemovePrompt ] = useState("hide");
     const [repairItem, setRepairItem]= useState({});
     let navigate = useNavigate(); 
@@ -105,7 +106,10 @@ function Cart({ setCartItems, cartItems, count, setCount, cartCount,totalPrice, 
     }
    
     return (
-    <div className='page-transition md:mt-32'>
+    <div className='page-transition md:mt-32 bg-[rgb(251,248,247)]'>
+        <div>
+		<Header isSignIn={isSignIn} setIsSignIn={setIsSignIn} cartItems={cartItems} cartCount={cartCount} setCartCount={setCartCount} />
+		</div>
         { removePrompt === "show" && <RemovePrompt setRemovePrompt={setRemovePrompt} cartItems={cartItems} setCartItems={setCartItems} repairItem={repairItem} setRepairItem={setRepairItem} tag="Repairs" /> }
         <BackToTop />
         <div className='md:relative md:top-3'>
@@ -118,7 +122,7 @@ function Cart({ setCartItems, cartItems, count, setCount, cartCount,totalPrice, 
                 copyCart.map( items => {
                     if (items.objectId) {
                         return (
-                            <div key={items.objectId + items.Tag  } className='md:p-2'>
+                            <div key={items.objectId + items.Tag  } className='md:p-2 bg-white rounded-md mx-3'>
                                 <CartInfo salesInfo={items} image={items.url} setCartItems={setCartItems} cartItems={cartItems} setCount={setCount} cartCount={cartCount} totalPrice={totalPrice} setTotalPrice={setTotalPrice} priceFormat={priceFormat} /> 
                             </div>
                             );

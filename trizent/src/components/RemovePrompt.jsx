@@ -65,9 +65,9 @@ function RemovePrompt({setRemovePrompt, cartItems, setCartItems, salesInfo, repa
 
     return (
     <>
-    <div className='fixed top-0 bg-slate-900 opacity-50 h-full w-full'></div>
-    <div className='fixed w-full top-1/4 rounded-xl shadow-lg md:w-2/3 md:left-36 md:h-48'>
-        <div className='bg-slate-100 rounded-xl shadow-lg w-[90%] mx-auto p-4 '>
+    <div className='fixed top-0 left-0 bg-slate-900 opacity-50 h-full w-full'></div>
+    <div className='fixed z-10 w-full bg-red-20 left-0 top-1/4 rounded-xl shadow-lg md:w-2/3 md:left-36 md:h-48'>
+        <div className='bg-slate-100 rounded-xl shadow-lg w-[90%] left-[5%] relative p-4 '>
             <div className='float-right hover:bg-gray-700 rounded-full'>
                 <CloseIcon onClick={()=> showPrompt("hide")} sx={{fontSize:30}} />
             </div>

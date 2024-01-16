@@ -9,7 +9,9 @@ const userSchema = new mongoose.Schema({
     address:String,
     city: String,
     country: String,
-    loggedIn: String
+    loggedIn: String,
+    photo: {type: String, required: true},
+    token: String
 });
 
 export const User = mongoose.model("User", userSchema);

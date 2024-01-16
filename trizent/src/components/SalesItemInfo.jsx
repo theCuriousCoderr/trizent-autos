@@ -7,7 +7,7 @@ import PopUp from './PopUp';
 import RentForm from './RentForm';
 import { ArrowForward } from '@mui/icons-material';
 
-function SalesItemInfo({salesInfo, car1, setCartItems, cartItems, tag}) {
+function SalesItemInfo({salesInfo, car1, setCartItems, cartItems, tag, state=true}) {
     const [ addedPrompt, setAddedPrompt ] = useState("hidden");
     const [rentForm, setRentForm] = useState("hideRentFormPrompt");
     const [rentFormState, setRentFormState] = useState("");
@@ -179,13 +179,13 @@ function SalesItemInfo({salesInfo, car1, setCartItems, cartItems, tag}) {
                 </div>
                <div className='flex items-end justify-end'>
                     <span className='text-2xl font-semibold'>$</span>
-                    { salesInfo.Price && <p className='text-4xl font-semibold'>{salesInfo.Price.slice(1)}</p>}
+                    { salesInfo.Price && <p className='text-4xl font-semibold'>{salesInfo.Price.slice(0)}</p>}
                </div>
                 
                
                
             </div>
-            <div className='w-full p-5 mx-auto text-center mt-0 md:w-full md:p-3 md:text-2xl'>
+            { state && <div className='w-full p-5 mx-auto text-center mt-0 md:w-full md:p-3 md:text-2xl'>
                 { (tag === "Sales") ? 
                     <button name="sales" onClick={addToCart} className='group w-full bg-gray-900 p-2 rounded-lg hover:bg-white flex justify-between items-center active:bg-green-600 md:w-full'>
                         <p className='text-slate-200 ml-2 text-base hover:text-gray-900 group-hover:text-gray-900'>BUY NOW</p>
@@ -200,7 +200,7 @@ function SalesItemInfo({salesInfo, car1, setCartItems, cartItems, tag}) {
                         </div>
                     </button>
                 }
-            </div>
+            </div> }
             {/* <p className='my-2 mx-1 p-2 bg-red-300 text-center text-red-800 font-bold md:text-lg'>You can come to the store to check out the car before proceeding to make payment.</p> */}
         </div> 
         </>

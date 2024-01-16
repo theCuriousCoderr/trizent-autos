@@ -12,10 +12,15 @@ import SignIn from '../pages/SignIn';
 import { Avatar } from '@mui/material';
 import "animate.css"
 import { companyName } from '../config';
+// require('dotenv').config()
+let k = import.meta.env
 
 
 export default function Header({ isSignIn, setIsSignIn, cartItems, cartCount, setCartCount }) {
     const [logIn, setLogIn] = useState(false);
+    // alert(process.env)
+    // alert(k.VITE_OLA)
+    // alert(k.MODE)
 
     let navigate = useNavigate();
 
@@ -125,7 +130,7 @@ export default function Header({ isSignIn, setIsSignIn, cartItems, cartCount, se
                     <div className='relative'>
                         <div className='absolute w-6 h-6 rounded-full bg-red-500 top-1 right-3 z-0'></div>
                         <div className='relative z-10'>
-                            <NavLink to="/" >
+                            <NavLink to="/home" >
                                 <img className="h-12 w-16 bg-red-20" src={white_logo} alt="Logo." />
                             </NavLink>
                         </div>
@@ -179,10 +184,10 @@ export default function Header({ isSignIn, setIsSignIn, cartItems, cartCount, se
                             })
                             }
 
-                            {user.email === process.env.REACT_APP_ADMIN_EMAIL && <li className='relative text-center '>
+                            {/* {user.email === process.env.REACT_APP_ADMIN_EMAIL && <li className='relative text-center '>
                                 <NavLink to="/admin-chat-room" className={`bg-orange-600 text-purple hover:bg-purple-900 text-white pt-3 text-xl xl:text-[.7rem] active:bg-green-600 font-bold block rounded-md h-12 p-2 text-center mt-3 md:bg-transparent md:hover:bg-transparent md:hover:text-purple-500 md:mt-10 md:text-sm `}>CHAT ROOM</NavLink>
 
-                            </li>}
+                            </li>} */}
 
                             <li ><NavLink to="/" onClick={handleLogOut} className='bg-red-500 hover:bg-red-800 text-white font-bold block rounded-md text-xl pt p-2 text-center mt-3 md:bg-transparent md:hover:bg-transparent md:hover:text-red-500 md:mt-11 md:text-sm lg:text-xl'>Log Out</NavLink></li>
                         </ul>)
@@ -264,19 +269,19 @@ export default function Header({ isSignIn, setIsSignIn, cartItems, cartCount, se
                                 })
                                 }
 
-                                {user.email === process.env.REACT_APP_ADMIN_EMAIL &&
+                                {/* {user.email === process.env.REACT_APP_ADMIN_EMAIL &&
                                     <li className='relative text-center'>
                                         <NavLink to="/admin-chat-room" className={`bg-orange-600 text-purple hover:bg-purple-900 text-white pt-3 text-xl xl:text-[.7rem] active:bg-green-600 font-bold block rounded-md h-12 p-2 text-center mt-3 md:bg-transparent md:hover:bg-transparent md:hover:text-purple-500 md:px-0 md:text-lg `}>CHAT ROOM</NavLink>
-                                    </li>}
+                                    </li>} */}
 
                                 <li ><NavLink to="/" onClick={handleLogOut} className='bg-red-500 hover:bg-red-800 text-white font-bold block rounded-md text-xl pt p-2 text-center mt-3 md:bg-transparent md:hover:bg-transparent md:hover:text-red-500 md:px-0 md:text-lg  xl:text-[.7rem]'>Log Out</NavLink></li>
                             </ul>
 
                             <ul onClick={() => handleMenuClick("close")} className='lg:flex md:justify-around md:mt-14 md:w-full bg-red-40' >
 
-                                <li className='mt-16 mb-4 flex flex-wrap flex-col gap-1 lg:absolute lg:right-1 lg:px-2 lg:-mt-14 lg:flex-row text-center'>
-                                    <div className='w-20 h-20 mx-auto rounded-full bg-gray-700 border-4 border-purple-800 hover:border-white overflow-hidden text-center md:h-28 md:w-28'>
-                                        <img src={profilePic} alt="User" />
+                                <li onClick={()=> navigate("/test-page")} className='mt-16 mb-4 flex flex-wrap flex-col gap-1 lg:absolute lg:right-1 lg:px-2 lg:-mt-14 lg:flex-row text-center'>
+                                    <div className='w-20 h-20 mx-auto flex items-center justify-center rounded-full bg-slate-200 border-4 border-purple-800 hover:border-white overflow-hidden text-center md:h-28 md:w-28'>
+                                        <img src={user.photo} alt="User" />
                                     </div>
                                     <div className='flex justify-center items-center gap-2'>
                                         <div className='w-3 h-3 md:h-4 md:w-4 rounded-full bg-green-500 mt-[.15rem] md:mt-4'></div>
@@ -298,17 +303,17 @@ export default function Header({ isSignIn, setIsSignIn, cartItems, cartCount, se
                                 {sideBarNavLinks.map(links => {
                                     return (
                                         <li key={links.path + "KEY"} className='relative text-center'>
-                                            <NavLink to={`/${links.path}`} className={`${links.style} active:bg-green-600 font-bold block rounded-xl p-2 text-center text-sm mt-3 `}>{links.text}gh</NavLink>
+                                            <NavLink to={`/${links.path}`} className={`${links.style} active:bg-green-600 font-bold block rounded-xl p-2 text-center text-sm mt-3 `}>{links.text}ghf</NavLink>
                                             {links.style === active && <div className='hidden lg:block md:relative md:bottom-6'><ArrowDropUp sx={{ fontSize: 45, color: 'whitesmoke' }} /></div>}
                                         </li>
                                     )
                                 })
                                 }
 
-                                {user.email === process.env.REACT_APP_ADMIN_EMAIL && <li className='relative text-center'>
+                                {/* {user.email === process.env.REACT_APP_ADMIN_EMAIL && <li className='relative text-center'>
                                     <NavLink to="/admin-chat-room" className={`bg-orange-600 text-purple hover:bg-purple-900 text-white pt-3 text-xl md:text-[2rem] md:pt-5 xl:text-[.7rem] active:bg-green-600 font-bold block rounded-md h-12 md:h-16 p-2 text-center mt-3 lg:bg-transparent lg:hover:bg-transparent lg:hover:text-purple-500 lg:px-0 lg:text-lg `}>CHAT ROOM</NavLink>
 
-                                </li>}
+                                </li>} */}
 
                                 <li ><NavLink to="/" onClick={handleLogOut} className='bg-red-500 hover:bg-red-800 text-white font-bold block rounded-md text-xl md:text-[2rem]  md:pt-4 pt p-2 md:h-16 text-center mt-3 lg:bg-transparent lg:hover:bg-transparent lg:hover:text-red-500 lg:px-0 lg:text-lg  xl:text-[.7rem]'>Log Out</NavLink></li>
                             </ul>

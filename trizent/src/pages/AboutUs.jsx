@@ -8,9 +8,10 @@ import mobilescreen from '../images/mobilescreen.png';
 import { NavLink } from 'react-router-dom';
 import Footer from '../components/Footer';
 import BackToTop from '../components/BackToTop';
+import Header from '../components/Header';
 
 
-function AboutUs({ isSignIn, setIsSignIn}) {
+function AboutUs({ isSignIn, cartItems, setCartItems, setIsSignIn, signInWelcome, cartCount, setCartCount, setSignInWelcome }) {
   const [team, setTeam] = useState("sales");
   useEffect(()=> {
     window.scrollTo(0, 0);
@@ -41,6 +42,8 @@ function AboutUs({ isSignIn, setIsSignIn}) {
 
   return (
    <div className='md:mt-32'>
+    
+    <Header isSignIn={isSignIn} setIsSignIn={setIsSignIn} cartItems={cartItems} cartCount={cartCount} setCartCount={setCartCount} />
     <BackToTop />
     <h1 className='font-bold text-xl text-center'>ABOUT US</h1>
     <div className='border-2 border-black  m-2'></div>

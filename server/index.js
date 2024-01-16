@@ -1,4 +1,6 @@
 import express from 'express';
+import bcrypt from 'bcryptjs'
+import jwt from 'jsonwebtoken'
 import mongoose, { set } from "mongoose";
 import { createServer } from 'http';
 import cors from 'cors';
@@ -21,12 +23,13 @@ if (process.env.NODE_ENV === "development") {
   baseUrl = "https://trizent-auto.vercel.app"
 }
 
-main().catch((err) => console.log(`MongoDB Error: ${err}`));
+
 async function main() {
-  let res = await mongoose.connect(process.env.MONGODB_URL);
+  let res = await mongoose.connect( process.env.MONGODB_URL);
   console.log(`MongoDB Success: Database connected successfully`);
 }
-console.log(baseUrl )
+main().catch((err) => console.log(`MongoDB Initial Connection Error: ${err}`));
+// console.log(baseUrl )
 
 const server = createServer(app);
 
@@ -54,16 +57,28 @@ app.post('/api/sign-in', async (req, res) => {
       address: req.body.address,
       city: req.body.city,
       country: req.body.country,
-      loggedIn: req.body.loggedIn
+      loggedIn: req.body.loggedIn,
+      photo: req.body.photo
     }
+    console.log(userDetails)
     let checkUser = await User.find({email: req.body.email })
     if (checkUser.length >= 1) {
       console.log("SDT")
       return res.status(200).send({ message: "Email Already Exists" });
     }
-    await User.create(userDetails);
+    let encryptedPassword = await bcrypt.hash(userDetails.password, 10)
+    userDetails = {...userDetails, password: encryptedPassword}
+    const user = await User.create(userDetails);
+    await user.save()
+    const token = jwt.sign(
+      {user_id: user._id, email_id: userDetails.email },
+      process.env.TOKEN_KEY,
+      { expiresIn: "2h"}
+    )
+    user.token = token
+    console.log(user)
     console.log("User Added Successfully");
-    return res.status(200).send({ message: "User Added Successfully" });
+    return res.status(200).send({ response: user, message: "User Added Successfully" });
   } catch (error) {
     // console.log(req)
     console.log(`Error SignIn: ${error.message}`);
@@ -83,15 +98,23 @@ app.get("/api/check", async(req, res) => {
 app.post('/api/log-in', async (req, res) => {
   try {
     console.log("############################")
+    console.log(await bcrypt.hash(req.body.password,10))
     console.log(await User.find({}))
-    console.log(await User.find({ email: req.body.emai, password: req.body.password }))
-    var findQuery = await User.find({ email: req.body.emai, password: req.body.password })
-    if (findQuery.length < 1) {
+    console.log(await User.find({ email: req.body.emai, password: await bcrypt.hash(req.body.password,10) }))
+    var findQuery = await User.find({ email: req.body.emai})
+    let pass = await bcrypt.compare(req.body.password, findQuery[0].password)
+    if (!(findQuery && pass)) {
       console.log("JJK")
       return res.status(200).send({message: "No matching data"});
       // throw new Error("Not found")
     }
     console.log("KKL")
+    const token = jwt.sign(
+      {user_id: findQuery._id, email_id: findQuery.email },
+      process.env.TOKEN_KEY,
+      { expiresIn: "2h"}
+    )
+    findQuery.token = token
     // findQuery.push({message: "Success"})
     // console.log(findQuery)
     res.status(200).send(findQuery[0])
@@ -102,9 +125,26 @@ app.post('/api/log-in', async (req, res) => {
 
 })
 
+app.post("/api/change-photo", async (req, res) => {
+  try {
+    // let newData = {id: req.body.id, url: req.body.newPhoto}
+    console.log(req.body)
+    let user = await User.findOne({_id: req.body.id})
+    if (user) {
+      console.log(user.photo)
+      user.photo = req.body.newPhoto;
+      user.save()
+      console.log(user.photo)
+      res.status(200).send({message: user.photo})
+    }
+  } catch(error) {
+    console.log(error)
+  }
+})
+
 app.get('/api/delete-users', async (req, res) => {
   try {
-    let del = await User.deleteMany({ email: "elijahdimeji549@gmail.com" })
+    let del = await User.deleteMany({})
     res.status(200).send(del)
   } catch (error) {
     return res.status(500).send("MongoDB Error: Error Deleting Users");

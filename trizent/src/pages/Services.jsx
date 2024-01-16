@@ -14,6 +14,7 @@ import Header from '../components/Header';
 
 
 function Sales({data, filter, handleFilterChange, handleFilterSubmit, salesInfo, setSalesInfo, setCartItems, cartItems, setCount, rentalData}) {
+
 	
 	return (
 		<> 
@@ -21,7 +22,7 @@ function Sales({data, filter, handleFilterChange, handleFilterSubmit, salesInfo,
 				!salesInfo ? 
 					<>
 						<div className='p-1'>
-							<Filter filter={filter} handleFilterChange={handleFilterChange} handleFilterSubmit={handleFilterSubmit} />
+							<Filter filter={filter} handleFilterChange={handleFilterChange} handleFilterSubmit={handleFilterSubmit} data={data} />
 						</div>
 						<div className='flex items-center gap-2 m-3'>
 							<FlagCircle sx={{fontSize: 40, color: purple[800] }} />
@@ -34,7 +35,11 @@ function Sales({data, filter, handleFilterChange, handleFilterSubmit, salesInfo,
 			
 								(data.map((item) => {
 									return (
-										<SalesItem key={item.objectId} item={item} image={car1} setSalesInfo={setSalesInfo} />
+										// <div>
+											
+											<SalesItem key={item.objectId} item={item} image={car1} setSalesInfo={setSalesInfo}  />
+										// </div>
+										
 									)
 								}))
 								}
@@ -299,6 +304,7 @@ export default function Services({isSignIn, setIsSignIn, setCartItems, cartItems
 	const [stat, setStat] = useState("sales");
 	const [filter, setFilter] = useState({});
 	const [data, setData] = useState(car_database);
+	const [data1, setData1] = useState(car_database);
 	const [change, setChange ] = useState("yes");
 	const [salesInfo, setSalesInfo] = useState(null);
 	const [repairService, setRepairService] = useState("");
@@ -358,7 +364,7 @@ export default function Services({isSignIn, setIsSignIn, setCartItems, cartItems
 		
 		let inputName = e.target.name;
 		let inputValue = e.target.value;
-		
+		let newData;
 		setFilter({...filter, [inputName] : inputValue});
 	}
 
@@ -367,8 +373,9 @@ export default function Services({isSignIn, setIsSignIn, setCartItems, cartItems
 		e.preventDefault();
 		let newData = [...car_database];
 		let freshData = [];
-		// alert(JSON.stringify(filter))
+		alert(JSON.stringify(filter))
 	
+		
 		for (let key in filter) {
 			if (filter[key].length > 0) {
 				for (let item of newData) {
@@ -391,6 +398,7 @@ export default function Services({isSignIn, setIsSignIn, setCartItems, cartItems
 		} else {
 			setData(newData);
 		}
+		
 		
 	}
 	return (

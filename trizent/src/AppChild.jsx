@@ -68,6 +68,7 @@ export default function AppChild({isSignIn, setIsSignIn}) {
       test = user.loggedIn;
     } catch (error) {
       user = { "loggedIn": "false" };
+      localStorage.setItem("user",JSON.stringify(user))
       setIsSignIn(false);
     }
    
@@ -112,10 +113,10 @@ export default function AppChild({isSignIn, setIsSignIn}) {
       <Routes>
         <Route path="/home" element={<Home isSignIn={isSignIn} setIsSignIn={setIsSignIn} cartItems={cartItems} signInWelcome={signInWelcome} setSignInWelcome={setSignInWelcome} cartCount={cartCount} setCartItems={setCartItems} setCartCount={setCartCount} />} />
         <Route path="/services" element={<Services isSignIn={isSignIn} setIsSignIn={setIsSignIn} setCartItems={setCartItems} cartItems={cartItems} setCount={setCount} setCartCount={setCartCount} rentalData={rentalData} setRentalData={setRentalData} />} />
-        <Route path="/blog" element={<Blog isSignIn={isSignIn} setIsSignIn={setIsSignIn} />} />
+        <Route path="/blog" element={<Blog isSignIn={isSignIn} setIsSignIn={setIsSignIn} cartItems={cartItems} signInWelcome={signInWelcome} setSignInWelcome={setSignInWelcome} cartCount={cartCount} setCartItems={setCartItems} setCartCount={setCartCount} />} />
         <Route path="/sign-in" element={<SignIn setIsSignIn={setIsSignIn} signInWelcome={signInWelcome} setSignInWelcome={setSignInWelcome} />} />
-        <Route path="/reviews" element={<Reviews isSignIn={isSignIn} setIsSignIn={setIsSignIn} reviews={reviews} />} />
-        <Route path="/about-us" element={<AboutUs isSignIn={isSignIn} setIsSignIn={setIsSignIn} />} />
+        <Route path="/reviews" element={<Reviews isSignIn={isSignIn} setIsSignIn={setIsSignIn} cartItems={cartItems} signInWelcome={signInWelcome} setSignInWelcome={setSignInWelcome} cartCount={cartCount} setCartItems={setCartItems} setCartCount={setCartCount} reviews={reviews} />} />
+        <Route path="/about-us" element={<AboutUs isSignIn={isSignIn} setIsSignIn={setIsSignIn} cartItems={cartItems} signInWelcome={signInWelcome} setSignInWelcome={setSignInWelcome} cartCount={cartCount} setCartItems={setCartItems} setCartCount={setCartCount} />} />
         <Route path="/contact-us" element={<ContactUs isSignIn={isSignIn} setIsSignIn={setIsSignIn} cartItems={cartItems} socket={socket} reviews={reviews} setReviews={setReviews} />} />
         <Route path="/cart" element={<Cart isSignIn={isSignIn} setIsSignIn={setIsSignIn} setCartItems={setCartItems} cartItems={cartItems} count={count} setCount={setCount} cartCount={cartCount} totalPrice={totalPrice} setTotalPrice={setTotalPrice} />} />
         <Route path="/chat-room" element={<ChatRoom socket={socket}  />} />
