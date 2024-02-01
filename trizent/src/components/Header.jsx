@@ -155,7 +155,7 @@ export default function Header({ isSignIn, setIsSignIn, cartItems, cartCount, se
 
                             <li className='bg-red-30 mt-16 mb-4 flex flex-wrap flex-col gap-1 md:absolute md:right-1 md:px-2 md:-mt-5 md:flex-row text-center md:gap-5'>
                                 <div className='w-20 h-20 mx-auto rounded-full bg-gray-700 border-4 border-purple-800 hover:border-white overflow-hidden text-center md:h-14 md:w-14'>
-                                    <img src={profilePic} alt="User" />
+                                    { <img src={profilePic} alt="User" /> } 
                                 </div>
                                 <div className='flex mt-3 bg-yellow-20 align-middle justify-center gap-2 md:gap-0 '>
                                     <div className='w-3 h-3 rounded-full bg-green-500 mt-[.15rem] md:mt-2'></div>
@@ -281,11 +281,11 @@ export default function Header({ isSignIn, setIsSignIn, cartItems, cartCount, se
 
                                 <li onClick={()=> navigate("/test-page")} className='mt-16 mb-4 flex flex-wrap flex-col gap-1 lg:absolute lg:right-1 lg:px-2 lg:-mt-14 lg:flex-row text-center'>
                                     <div className='w-20 h-20 mx-auto flex items-center justify-center rounded-full bg-slate-200 border-4 border-purple-800 hover:border-white overflow-hidden text-center md:h-28 md:w-28'>
-                                        <img src={user.photo} alt="User" />
+                                        {user.photo ? <img src={user.photo} alt="User" /> : <Avatar /> }
                                     </div>
                                     <div className='flex justify-center items-center gap-2'>
                                         <div className='w-3 h-3 md:h-4 md:w-4 rounded-full bg-green-500 mt-[.15rem] md:mt-4'></div>
-                                        {user.email && <p className='text-[.9rem] text-white font-bold font-mono lg:text-white md:font-roboto md:mt-3 md:ml-2 md:text-xl  '>{user.lastName + " " + user.firstName}</p>}
+                                        {user.email ? <p className='text-[.9rem] text-white font-bold font-mono lg:text-white md:font-roboto md:mt-3 md:ml-2 md:text-xl  '>{user.lastName + " " + user.firstName}</p> : <p className='text-[.9rem] text-white font-bold font-mono lg:text-white md:font-roboto md:mt-3 md:ml-2 md:text-xl  '>John Doe</p>}
                                     </div>
                                 </li>
 

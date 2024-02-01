@@ -1,4 +1,4 @@
-import { ArrowBack, ArrowForwardIos, AvTimerOutlined, CameraAlt, CameraAltOutlined, CameraFrontOutlined, HomeMaxOutlined, HomeOutlined, ListAltOutlined, LogoutOutlined, PersonOffOutlined, PersonOutlineOutlined, VerifiedUserOutlined } from '@mui/icons-material';
+import { AccountBox, ArrowBack, ArrowForwardIos, AvTimerOutlined, CameraAlt, CameraAltOutlined, CameraFrontOutlined, DeliveryDining, History, HomeMaxOutlined, HomeOutlined, Label, ListAltOutlined, LogoutOutlined, PersonOffOutlined, PersonOutlineOutlined, Settings, Tag, TagFacesOutlined, VerifiedUserOutlined } from '@mui/icons-material';
 import { Avatar } from '@mui/material';
 import React, { useEffect, useRef, useState } from 'react'
 import cat from "../images/cat.jpg"
@@ -120,17 +120,19 @@ function TestPage() {
                         
                     </div>
                 </div>
-                <div>
+                {user.email ? <div>
                     <p className='text-gray-900 text-xl font-bold capitalize leading-6'>{user.lastName + " " + user.firstName}</p>
                     <p className="text-slate-400 font-semibold text-lg">{user.email}</p>
-                </div>
+                </div> : <p className='text-gray-900 text-xl font-bold capitalize leading-6'>Jonh Doe</p> }
                
             </div>
             <div className="w-[90%] mx-auto bg-green-70 space-y-5 my-5">
                 <div className="h-12 flex items-center justify-between bg-[rgba(150,150,150,0.12)] rounded-lg">
                     <div className="flex w-[80%] gap-3 items-center justify-start px-5 py-2 bg-red-40">
-                        <div className='inline-block w-5 h-5 bg-red-200'></div>
-                        <p>ydj</p>
+                        <div className='flex items-center justify-center w-5 h-5 bg-red-20'>
+                            <AccountBox  sx={{fontSize: 20}} />
+                        </div>
+                        <p>Account Details</p>
                     </div>
                     <div className="w-[10%]">
                         <ArrowForwardIos sx={{color:'GrayText', fontSize: 20}} />
@@ -138,8 +140,10 @@ function TestPage() {
                 </div>
                 <div className="h-12 flex items-center justify-between bg-[rgba(150,150,150,0.12)] rounded-lg">
                     <div className="flex w-[80%] gap-3 items-center justify-start px-5 py-2 bg-red-40">
-                        <div className='inline-block w-5 h-5 bg-red-200'></div>
-                        <p>ydj</p>
+                        <div className='flex items-center justify-center w-5 h-5 bg-red-20'>
+                            <History  sx={{fontSize: 20}} />
+                        </div>
+                        <p>Transaction History</p>
                     </div>
                     <div className="w-[10%]">
                         <ArrowForwardIos sx={{color:'GrayText', fontSize: 20}} />
@@ -147,8 +151,10 @@ function TestPage() {
                 </div>
                 <div className="h-12 flex items-center justify-between bg-[rgba(150,150,150,0.12)] rounded-lg">
                     <div className="flex w-[80%] gap-3 items-center justify-start px-5 py-2 bg-red-40">
-                        <div className='inline-block w-5 h-5 bg-red-200'></div>
-                        <p>ydj</p>
+                        <div className='flex items-center justify-center w-5 h-5 bg-red-20'>
+                            <DeliveryDining  sx={{fontSize: 20}} />
+                        </div>
+                        <p>All orders</p>
                     </div>
                     <div className="w-[10%]">
                         <ArrowForwardIos sx={{color:'GrayText', fontSize: 20}} />
@@ -156,8 +162,10 @@ function TestPage() {
                 </div>
                 <div className="h-12 flex items-center justify-between bg-[rgba(150,150,150,0.12)] rounded-lg">
                     <div className="flex w-[80%] gap-3 items-center justify-start px-5 py-2 bg-red-40">
-                        <div className='inline-block w-5 h-5 bg-red-200'></div>
-                        <p>ydj</p>
+                        <div className='flex items-center justify-center w-5 h-5 bg-red-20'>
+                            <Settings  sx={{fontSize: 20}} />
+                        </div>
+                        <p>Settings</p>
                     </div>
                     <div className="w-[10%]">
                         <ArrowForwardIos sx={{color:'GrayText', fontSize: 20}} />
@@ -165,8 +173,10 @@ function TestPage() {
                 </div>
                 <div className="h-12 flex items-center justify-between bg-[rgba(150,150,150,0.12)] rounded-lg">
                     <div className="flex w-[80%] gap-3 items-center justify-start px-5 py-2 bg-red-40">
-                        <div className='inline-block w-5 h-5 bg-red-200'></div>
-                        <p>ydj</p>
+                        <div className=' w-5 h-5 bg-red-20 flex items-center justify-center'>
+                            <Tag sx={{fontSize: 20}} />
+                        </div>
+                        <p>Get coupon</p>
                     </div>
                     <div className="w-[10%]">
                         <ArrowForwardIos sx={{color:'GrayText', fontSize: 20}} />
@@ -175,7 +185,7 @@ function TestPage() {
                 
             </div>
             <div className='w-[90%] mx-auto mt-10'>
-                <button className="h-10 relative items-center flex gap-5 justify-center bg-gray-900 w-full text-center text-gray-100 font-bold text-lg font-mono rounded-lg">
+                <button onClick={() => { localStorage.removeItem("user") }} className="h-10 relative items-center flex gap-5 justify-center bg-gray-900 hover:bg-red-500 w-full text-center text-gray-100 font-bold text-lg font-mono rounded-lg">
                     <div className=' w-[10%] bg-red-20'>
                         <LogoutOutlined />
                     </div>

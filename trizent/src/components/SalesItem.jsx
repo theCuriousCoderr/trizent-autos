@@ -58,8 +58,8 @@ function SalesItem({item, image, setSalesInfo}) {
     
     return (
         <div onClick={()=>setSalesInfo(item)} className='relative bg-[rgba(70,52,109,0.05)] hover:bg-[rgba(138,72,119,0.15)] w-[45%] h-60 pb-3 mb-5 rounded-md overflow-hidden no-scrollbar shadow-sm md:w-56'>
-            <div className='p-1 w-full h-1/2 overflow-hidden bg-red-40 relative flex items-center justify-center'>
-                {item.url ? <img src={item.url} className='w-full relative h-full border-black bottom-0' /> : <img src={image} className='w-full relative h-full border-black bottom-0' /> }
+            <div className='p-1 w-full h-1/2 bg-white overflow-hidden bg-red-40 relative flex items-center justify-center'>
+                {item.url ? <img src={item.url} className='w-full relative bottom-0' /> : <img src={image} className='w-full relative h-full border-black bottom-0' /> }
             </div>
             <div className='z-10 relative w-full p-2 h-1/2 overflow-scrol no-scrollbar text-left text-sm leading-4 '>
                 <div className='absolute w-[20%] h-8 bg-blac right-[5%] -top-4 rounded-full flex items-center justify-center'>

@@ -373,7 +373,7 @@ export default function Services({isSignIn, setIsSignIn, setCartItems, cartItems
 		e.preventDefault();
 		let newData = [...car_database];
 		let freshData = [];
-		alert(JSON.stringify(filter))
+		// alert(JSON.stringify(filter))
 	
 		
 		for (let key in filter) {
