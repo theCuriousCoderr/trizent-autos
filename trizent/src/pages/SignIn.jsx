@@ -311,7 +311,7 @@ function NewMember({
           )}
         </div>
       </form>
-      <div onClick={()=> { localStorage.setItem("user", JSON.stringify({"loggedIn": "true"})); navigate("/home") }} className="text-slate-100 text-lg text-center m-5 mt-20 p-1 rounded-md bg-blue-500">Bypass SignUp/Login</div>
+      <div onClick={()=> { localStorage.setItem("user", JSON.stringify({"loggedIn": "true"})); navigate("/home") }} className="text-slate-100 text-lg text-center m-5 mt-10 p-1 rounded-md bg-blue-500">Bypass SignUp/Login</div>
     </div>
   );
 }
@@ -413,7 +413,7 @@ function NotNewMember({
           </div>
         </form>
       </div>
-      <div onClick={()=> { localStorage.setItem("user", JSON.stringify({"loggedIn": "true"})); navigate("/home") }} className="text-slate-100 text-lg text-center m-5 mt-20 p-1 rounded-md bg-blue-500">Bypass SignUp/Login</div>
+      <div onClick={()=> { localStorage.setItem("user", JSON.stringify({"loggedIn": "true"})); navigate("/home") }} className="text-slate-100 text-lg text-center m-5 mt-10 p-1 rounded-md bg-blue-500">Bypass SignUp/Login</div>
     </div>
   );
 }

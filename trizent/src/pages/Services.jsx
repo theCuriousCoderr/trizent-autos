@@ -412,10 +412,10 @@ export default function Services({isSignIn, setIsSignIn, setCartItems, cartItems
 		</div>
 		
 		<div className='md:mt-8'>
-			<div className='flex justify-evenly md:text-xl md:h-14 p-2 text-white mt-5 mb-5'>
-				<p className='bg-red-30 w-20 flex justify-center'><NavLink to="#" onClick={() => { setSalesInfo(n => setSalesInfo(null)); setStat("sales"); setPath("Sales")}} className={`${sales} hover:bg-violet-900 p-2`}>Sales</NavLink></p>
-				<p className='bg-red-30 w-20 flex justify-center'><NavLink to="#" onClick={() => { setSalesInfo(n => setSalesInfo(null)); setStat("rentals"); setPath("Rentals")}} className={`${rentals} hover:bg-violet-900 p-2`}>Rentals</NavLink></p>
-				<p className='bg-red-30 w-20 flex justify-center'><NavLink to="#" onClick={() => { setRepairService(n => setRepairService("")); setStat("repairs"); setPath("Repairs")}} className={`${repairs} hover:bg-violet-900 p-2`}>Repairs</NavLink></p>
+			<div className='flex justify-evenly md:text-xl md:h-14 p-2 text-white my-2'>
+				<p className='bg-red-30 w-20 flex justify-center'><NavLink to="#" onClick={() => { setSalesInfo(n => setSalesInfo(null)); setStat("sales"); setPath("Sales")}} className={`${sales} hover:bg-violet-300`}>Sales</NavLink></p>
+				<p className='bg-red-30 w-20 flex justify-center'><NavLink to="#" onClick={() => { setSalesInfo(n => setSalesInfo(null)); setStat("rentals"); setPath("Rentals")}} className={`${rentals} hover:bg-violet-300`}>Rentals</NavLink></p>
+				<p className='bg-red-30 w-20 flex justify-center'><NavLink to="#" onClick={() => { setRepairService(n => setRepairService("")); setStat("repairs"); setPath("Repairs")}} className={`${repairs} hover:bg-violet-300`}>Repairs</NavLink></p>
 			</div>
 			<div>
 				<Content 
