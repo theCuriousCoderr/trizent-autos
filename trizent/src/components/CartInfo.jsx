@@ -84,9 +84,9 @@ function CartInfo({salesInfo, image, setCartItems, cartItems, setCount, setTotal
     { removePrompt === "show" && <RemovePrompt setRemovePrompt={setRemovePrompt} cartItems={cartItems} setCartItems={setCartItems} salesInfo={salesInfo} /> }
     {/* {setCartTotalPrice(prevPrice => prevPrice + priceFormat(salesInfo.Price))} */}
     { salesInfo.Count > 0 && 
-    <div onClick={()=> setShowInfo(true)} className='mx-2 bg-blue-60 mb-5 p-1 pb-3 rounded-lg borde border-purple-900 md:flex md:flex-wrap md:w-full'>
+    <div onClick={()=> setShowInfo(true)} className='mx-2 hover:bg-slate-200 mb-5 p-1 rounded-lg md:flex md:flex-wrap md:w-full'>
         { showInfo && 
-        <div onClick={(e)=> {e.stopPropagation(); setShowInfo(false)}} className='absolute flex pt-[15vh] justify-center z-10 top-0 left-0 w-full h-full bg-gray-700 bg-opacity-70'>
+        <div onClick={(e)=> {e.stopPropagation(); setShowInfo(false)}} className='fixed flex pt-10 justify-center z-50 top-0 left-0 w-full h-full bg-gray-950 bg-opacity-100'>
             <div>
                 <SalesItemInfo salesInfo={salesInfo} car1={car1} setCartItems={setCartItems} cartItems={cartItems}  state={false} />
             </div>
@@ -109,10 +109,10 @@ function CartInfo({salesInfo, image, setCartItems, cartItems, setCount, setTotal
                 </div>
                
                 
-                <p className='relative bg-purple-700 bg-opacity-30 font-normal text-fuchsia-900 rounded-full px-1 w-20 text-center mx-aut text-sm'>
+                <p className='relative bg-gray-900 font-normal text-white rounded px-2 py-1 inline-block text-center mx-aut text-xs'>
                     
-                    <div className='absolute bottom-1 right-1 w-1 h-1 rounded-full bg-white'></div>
-                    <div className='absolute top-1 left-1 w-1 h-1 rounded-full bg-white'></div>
+                    {/* <div className='absolute bottom-1 right-1 w-1 h-1 rounded-full bg-white'></div>
+                    <div className='absolute top-1 left-1 w-1 h-1 rounded-full bg-white'></div> */}
                     {salesInfo.Tag}
                 </p>
 

@@ -65,7 +65,7 @@ function RemovePrompt({setRemovePrompt, cartItems, setCartItems, salesInfo, repa
 
     return (
     <>
-    <div className='fixed top-0 left-0 bg-slate-900 opacity-50 h-full w-full'></div>
+    <div className='fixed z-10 top-0 left-0 bg-slate-900 opacity-90 h-full w-full'></div>
     <div className='fixed z-10 w-full bg-red-20 left-0 top-1/4 rounded-xl shadow-lg md:w-2/3 md:left-36 md:h-48'>
         <div className='bg-slate-100 rounded-xl shadow-lg w-[90%] left-[5%] relative p-4 '>
             <div className='float-right hover:bg-gray-700 rounded-full'>
@@ -73,7 +73,7 @@ function RemovePrompt({setRemovePrompt, cartItems, setCartItems, salesInfo, repa
             </div>
             <p className='font-bold text-xl text-gray-950 md:text-2xl'>Remove from cart</p>
             <p className='text-lg font-medium text-gray-800 mt-3 md:text-xl'>Do you really want to remove this item from cart?</p>
-            <div className='flex justify-between py-1 px-2 bg-purple-700 text-center mt-5 shadow-lg hover:bg-red-600  active:bg-red-600 md:h-14'>
+            <div className='flex justify-between items-center py-1 px-2 bg-red-700 rounded-md text-center mt-5 shadow-lg hover:bg-red-600  active:bg-red-600 md:h-14'>
                 <div className='md:hidden'>
                     <DeleteForeverOutlinedIcon sx={{color:'white', fontSize: 30}} />
                 </div>
@@ -81,7 +81,7 @@ function RemovePrompt({setRemovePrompt, cartItems, setCartItems, salesInfo, repa
                     <DeleteForeverOutlinedIcon sx={{color:'white', fontSize: 40}} />
                 </div>
                 <div className='w-full pr-4'>
-                    <button onClick={handleRemoveItem} className='text-white text-center font-semibold w-full h-8 md:text-xl md:mt-2'>REMOVE ITEM</button>
+                    <button onClick={handleRemoveItem} className='text-white rounded-md text-center font-semibold w-full h-8 md:text-xl md:mt-2'>REMOVE ITEM</button>
                 </div>
             </div>
         </div>

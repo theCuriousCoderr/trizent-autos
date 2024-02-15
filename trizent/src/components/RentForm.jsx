@@ -99,12 +99,12 @@ export default function RentForm({setRentFormState, newCartItems, rentalData, se
         
     return (
     <>
-        <div onClick={()=> setRentForm("hideRentFormPrompt")} className='fixed top-0 bg-slate-900 opacity-50 h-full w-full'></div>
+        <div onClick={()=> setRentForm("hideRentFormPrompt")} className='fixed z-10 top-0 bg-slate-900 opacity-90 h-screen w-full'></div>
         <h1 className='font-bold text-xl text-center'>Rentals Form</h1>
         <div className='border-2 border-black m-2'></div>
        
-       <div className='fixed top-[15%]  h-96 w-full mx-auto px-3'> 
-        <div  className='mx-auto bg-white h-[25rem] w-fu rounded-xl p-3 shadow-lg md:w-4/5 md:left-[10%] md:top-1/4 md:h'>
+       <div className='fixed z-10 top-[15%] w-full mx-auto px-3'> 
+        <div  className='mx-auto bg-white pb-5 w-fu rounded-xl p-3 shadow-lg md:w-4/5 md:left-[10%] md:top-1/4 md:h'>
             <p className='p-1 border-b border-orange-600 inline-block font-bold md:text-2xl'>Rent Cars</p>
             { select && 
                 <div className={` text-pink-500 font-bold text-center bg-pink-200 p-2 rounded-lg mb-5 mt-3 `} >
@@ -112,7 +112,7 @@ export default function RentForm({setRentFormState, newCartItems, rentalData, se
                 </div> 
             }
             <div className='mt-5'>
-                <p className='text-black font-normal md:text-2xl'>Pick-up & return</p>
+                <p className='text-black text-sm font-normal md:text-2xl'>Pick-up & return location</p>
                 <div className='relative'>
                     <div className='absolute left-2 top-2'>
                         <Search sx={{color: purple[800]}} />
@@ -148,8 +148,8 @@ export default function RentForm({setRentFormState, newCartItems, rentalData, se
                     :  <input id="returnDate" autoComplete='off' name="returnDate" value={rentalData.returnDate} onChange={handleChange} type="date" className={`p-1 border-b border-slate-700 font-semibold w-36 placeholder:text-[.9rem]  md:text-2xl`} placeholder='Select return date' /> }
                 </div>
             </div>
-            <div className='text-center relative mt-5 h-12'>
-                <button onClick={handleClick} className='w-full h-full bg-orange-600 text-white font-bold font-roboto hover:bg-orange-500 md:text-xl'>RENT CAR</button>
+            <div className='text-center relative mt-5 h-10'>
+                <button onClick={handleClick} className='w-full h-full rounded-md bg-orange-600 text-white font-bold font-roboto hover:bg-orange-500 md:text-xl'>RENT CAR</button>
             </div>
         </div>
         </div>
