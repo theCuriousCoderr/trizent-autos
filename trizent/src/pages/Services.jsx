@@ -29,7 +29,7 @@ function Sales({data, filter, handleFilterChange, handleFilterSubmit, salesInfo,
 							<p className='font-bold text-lg'>XXXX cars for sale</p>
 						</div>
 						<div className='flex flex-wrap text-center justify-center space-y-5 mt-4'>
-							<p>sjsjh</p>
+							{/* <p>sjsjh</p> */}
 							<ul className='bg-slate-50 flex flex-wrap w-full justify-evenly md:flex md:flex-row md:justify-between md:flex-wrap md:w-full md:p-3'>
 								{ data === "No Results Found Matching This Filter" ? <h2 className='font-bold text-3xl'>No Results Found Matching This Filter</h2> : 
 			
@@ -387,7 +387,11 @@ export default function Services({isSignIn, setIsSignIn, setCartItems, cartItems
 					}
 					else if ((item[key].toString().toLowerCase() === filter[key].toLowerCase())) { 
 						freshData.push(item) 
-					};
+					} 
+					else if ( (filter[key].toLowerCase() === "model") || (filter[key].toLowerCase() === "make") || (filter[key].toLowerCase() === "category")  ) {
+						freshData.push(item) 
+					}
+					;
 				}
 				newData = [...freshData];
 				freshData = [];
