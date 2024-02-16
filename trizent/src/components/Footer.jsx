@@ -12,7 +12,7 @@ export default function Footer() {
         { "link": "Accessibility" },
         { "link": "Privacy Policy" },
         { "link": "Store Policy" },
-        { "link": "Book An Appointment" },
+        { "link": "Book Appointment" },
         { "link": "Coupons" }
     ]
 
@@ -32,8 +32,8 @@ export default function Footer() {
                 </div>
                 <div id="contact_us" className='mt-9 font-bold text-center space-y-4 mb-2 xl:mt-0 '>
                     <h2 className='text-slate-50 text-xl font-bold xl:text-3xl'>Quick Connect</h2>
-                    <p className='text-slate-400 hover:text-slate-50 hover:underline transition-all'>0703-788-7923</p>
-                    <p className='text-slate-400 hover:text-slate-50 hover:underline transition-all'>localhost:3000</p>
+                    <p className='text-slate-400 hover:text-slate-50 hover:underline transition-all'>(+234) 703-788-7923</p>
+                    <p className='text-slate-400 hover:text-slate-50 hover:underline transition-all'>localhost:5173</p>
                 </div>
             </div>
             <hr className="bg-slate-950 opacity-20"/>
